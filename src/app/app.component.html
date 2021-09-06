@@ -1,0 +1,13 @@
+<div class="container  align-items-center justify-content-end p-5">
+  <div class="row mb-5">
+    <button type="button" class="btn btn-primary" *ngIf="!selfieMode && !signatureMode" (click)="clickSelfie()">Take
+      selfie</button>
+    <app-capture-user-image *ngIf="selfieMode"></app-capture-user-image>
+  </div>
+
+  <div class="row">
+    <button type="button" class="btn btn-primary" *ngIf="!signatureMode && !selfieMode"
+      (click)="uploadSignature()">Upload signature</button>
+    <app-capture-signature *ngIf="signatureMode"></app-capture-signature>
+  </div>
+</div>

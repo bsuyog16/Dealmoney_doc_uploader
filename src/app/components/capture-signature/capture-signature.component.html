@@ -1,0 +1,77 @@
+<!-- <div><img src="http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg">
+</div> -->
+
+<div>
+  <div class="row">
+    <h1>Upload Signature</h1>
+  </div>
+  <div *ngIf="!showCroppedImage">
+    <input class="btn btn-primary" type="file" (change)="fileChangeEvent($event)" />
+    <div *ngIf="croppedImage" class="row">
+      <button class="m-3 btn btn-secondary" (click)="zoomOut()">Zoom -</button>
+      <button class="m-3 btn btn-secondary" (click)="zoomIn()">Zoom +</button>
+    </div>
+    <div class="image-crop">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="16 / 9"
+        [transform]="transform" [resizeToWidth]="189" [resizeToHeight]="32" [cropperStaticWidth]="189"
+        [cropperStaticHeight]="32" [hideResizeSquares]="true" format="jpeg" (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+      </image-cropper>
+    </div>
+    <button *ngIf="croppedImage && platform == 'desktop'" type="button" class="btn btn-primary"
+      (click)="cropImage();">Crop</button>
+  </div>
+
+
+  <!-- CODE FOR MOBILE -->
+  <div *ngIf='!croppedImage' class="row">
+    <button type="button" class="btn btn-primary"
+      *ngIf="!isPhotoSelectedForSign && !showCroppedImage && (platform == 'mobile' || platform == 'tablet')"
+      (click)="takeSignaturePhoto()">Take
+      a picture</button>
+  </div>
+
+  <div class="row mt-5"
+    *ngIf="!croppedImage && isPhotoSelectedForSign && (platform == 'mobile' || platform == 'tablet')">
+    <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+      *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+      (cameraSwitched)="cameraWasSwitched($event)" [videoOptions]="videoOptions" [imageQuality]="1"
+      (initError)="handleInitError($event)"></webcam>
+  </div>
+  <div class="row mt-5">
+    <button type="button" class="btn btn-primary"
+      *ngIf="!croppedImage && isPhotoSelectedForSign && (platform == 'mobile' || platform == 'tablet')"
+      (click)="triggerSnapshot();">Take
+      A Snapshot</button>
+  </div>
+
+
+
+  <!-- <div *ngIf="croppedImage && !showCroppedImage && (platform == 'mobile' || platform == 'tablet')" class="row">
+    <button class="m-3 btn btn-secondary" (click)="zoomOut()">Zoom -</button>
+    <button class="m-3 btn btn-secondary" (click)="zoomIn()">Zoom +</button>
+  </div> -->
+  <div class="row" *ngIf="!showCroppedImage && (platform == 'mobile' || platform == 'tablet')">
+    <image-cropper *ngIf=" isPhotoSelectedForSign " [imageBase64]="clickedImage" [maintainAspectRatio]="true"
+      [resizeToWidth]="189" [resizeToHeight]="32" [cropperStaticWidth]="189" [cropperStaticHeight]="32"
+      [transform]="transform" [aspectRatio]="16 / 9" [hideResizeSquares]="true" format="jpeg"
+      (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()">
+    </image-cropper>
+  </div>
+  <div class="row mt -5">
+    <button type="button" class="btn btn-primary"
+      *ngIf="!showCroppedImage && croppedImage && (platform == 'mobile' || platform == 'tablet')"
+      (click)=" cropImage();">Crop</button>
+  </div>
+
+
+  <div class="row mt-5 mb-5">
+    <img *ngIf='showCroppedImage' [src]="croppedImage" />
+  </div>
+
+  <div class="row ">
+    <button type="button" class="btn btn-success" *ngIf='croppedImage && showCroppedImage'
+      (click)="saveImage();">Submit</button>
+  </div>
+</div>
