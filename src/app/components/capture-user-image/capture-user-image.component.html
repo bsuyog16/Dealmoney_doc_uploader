@@ -30,8 +30,10 @@
     <button class="m-3 btn btn-secondary" (click)="zoomIn()">Zoom +</button>
   </div>
   <div *ngIf="!showCroppedImage" class="row croper-container">
-    <image-cropper [imageBase64]="clickedImage" [maintainAspectRatio]="true" [resizeToWidth]="300"
-      [resizeToHeight]="300" [cropperStaticWidth]="300" [cropperStaticHeight]="300" [aspectRatio]="1 / 1" format="jpeg"
+
+    <!-- REPLACE 200 here with the required dimension for user photo -->
+    <image-cropper [imageBase64]="clickedImage" [maintainAspectRatio]="true" [resizeToWidth]="200"
+      [resizeToHeight]="200" [cropperStaticWidth]="200" [cropperStaticHeight]="200" [aspectRatio]="1 / 1" format="jpeg"
       [transform]="transform" [hideResizeSquares]="true" (imageCropped)="imageCropped($event)"
       (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
     </image-cropper>
