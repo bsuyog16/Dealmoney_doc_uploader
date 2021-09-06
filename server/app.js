@@ -3,21 +3,23 @@ var express = require("express");
 var http = require("http");
 var fs = require("fs");
 const cors = require("cors");
+//If not required, remove corsOptions if CORS error is not present
 const corsOptions = {
   origin: "*",
 };
-//serve files from 2nd argument or current working directory of the
-var pathOfFolderToServe = `../dist/crop`;
+
+//storagePath is the path where images are supposed to be stored.
+//Update this variable with appropriate path.
 var storagePath = "./storage/images/";
 var app = express();
-app.use(express.static(pathOfFolderToServe));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 http.createServer(app).listen(4200);
 
+//If not required, remove cors(corsOptions) if CORS error is not present
 app.post("/uploadimage", cors(corsOptions), (req, res) => {
-  console.log("INPATH", req.body.key);
   saveImage(req);
+  //Based on succeess & faliure. throw you can customize your response below
   res.json({ message: "File uploaded", status: 200 });
 });
 
@@ -30,8 +32,11 @@ function saveImage(req) {
   } else if (req.body.imageAction == "singatureImage") {
     imgPath = "/signature_images/" + imageName + "_signature_image.jpeg";
   }
+  //fullImagePath can be used to store image path in DB.
   let fullImagePath = storagePath + imgPath;
   fs.writeFile(fullImagePath, base64, "base64", function (err) {
+    //Based on succeess & faliure. throw you can customize your response below
+    //On success, use this part to store fullImagePath in DB
     console.log(err);
   });
 }

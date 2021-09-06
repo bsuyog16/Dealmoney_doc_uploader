@@ -1,6 +1,3 @@
-<!-- <div><img src="http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg">
-</div> -->
-
 <div>
   <div class="row">
     <h1>Upload Signature</h1>
@@ -45,12 +42,6 @@
       A Snapshot</button>
   </div>
 
-
-
-  <!-- <div *ngIf="croppedImage && !showCroppedImage && (platform == 'mobile' || platform == 'tablet')" class="row">
-    <button class="m-3 btn btn-secondary" (click)="zoomOut()">Zoom -</button>
-    <button class="m-3 btn btn-secondary" (click)="zoomIn()">Zoom +</button>
-  </div> -->
   <div class="row" *ngIf="!showCroppedImage && (platform == 'mobile' || platform == 'tablet')">
     <image-cropper *ngIf=" isPhotoSelectedForSign " [imageBase64]="clickedImage" [maintainAspectRatio]="true"
       [resizeToWidth]="189" [resizeToHeight]="32" [cropperStaticWidth]="189" [cropperStaticHeight]="32"
